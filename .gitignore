@@ -1,0 +1,7 @@
+target
+node_modules
+*.swp
+.classpath
+.project
+.settings
+.idea
