@@ -15,17 +15,21 @@ If you change the port then you could not use the [Browsers Extension](http://fe
 Cli
 ---
 
-Download the [livereload-jvm-0.1.0-onejar.jar]() (or regular jar  + all dependencies from maven central).
+Download the [livereload-jvm-0.1.0-onejar.jar](http://repo2.maven.org/maven2/net/alchim31/livereload-jvm/0.1.0/livereload-jvm-0.1.0-onejar.jar) (or regular jar  + all dependencies from maven central).
 
     java -jar livereload-jvm-0.1.0-onejar.jar web/root/path [port]
 
 Java integration
 ----------------
 
-    import net_alchim31_livereload.LRServer;
+    //#repo central m2:http://repo1.maven.org/maven2/
     
-    LRServer server = new LRServer(port, docroot);
-    server.run();
+    import java.nio.file.FileSystems;
+    import net_alchim31_livereload.LRServer //#from net.alchim31:livereload-jvm:0.1.0
+    
+    int port = 35729;
+    Path docroot = FileSystems.getDefault().getPath("web/root/path");
+    new LRServer(port, docroot).run();
 
 If you provide a plugin for your builder (maven, ant, sbt, gradle, plob, ...), let me know.
 
