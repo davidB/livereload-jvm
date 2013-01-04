@@ -46,18 +46,25 @@ public class LRServer {
     _watcher.listener = wsHandler;
   }
 
-  // public void start() throws Exception {
-  // _server.start();
-  // }
-
-  public void run() throws Exception {
-    // start();
-    _server.start();
-    _watcher.run();
-    _server.join();
+  public void start() throws Exception {
+   _server.start();
+   _watcher.start();
   }
 
-  // public void stop() throws Exception {
-  // _server.stop();
-  // }
+  public void run() throws Exception {
+    try {
+      start();
+      join();
+    } finally {
+      stop();
+    }
+  }
+
+  public void join() throws Exception {
+    _server.join();
+  }
+  public void stop() throws Exception {
+    _watcher.stop();
+    _server.stop();
+  }
 }
