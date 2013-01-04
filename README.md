@@ -43,4 +43,4 @@ Alternatives
 * [guard-livereload](https://github.com/guard/guard-livereload) a LiveReload server-side for Guard (Ruby)
 * [grunt-reload](https://github.com/webxl/grunt-reload) a LiveReload server-side for Grunt (javascript/nodejs)
 * [LivePage](https://chrome.google.com/webstore/detail/livepage/pilnojpmdoofaelbinaeodfpjheijkbh) an other way to "auto-reload"
-* without LiveReload : `cd t web/root/path && python -m http.server 8000` (python)
+* without LiveReload : `cd web/root/path && python -m http.server 8000` (python)
