@@ -10,7 +10,7 @@ Usages
 ======
 
 The default port is 35729 (like define in the LiveReload protocol).
-If you change the port then you could not use the Chrome Extension for LiveReload, but it should works with manual import of livereload.js in your pages
+If you change the port then you could not use the [Browsers Extension](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-) for LiveReload, but it should works if you insert a [JavaScript snippet](http://go.livereload.com/mobile) in your pages.
 
 Cli
 ---
@@ -22,7 +22,7 @@ Download the [livereload-jvm-0.1.0-onejar.jar]() (or regular jar  + all dependen
 Java integration
 ----------------
 
-    import net_alchim31_livereload
+    import net_alchim31_livereload.LRServer;
     
     LRServer server = new LRServer(port, docroot);
     server.run();
@@ -32,9 +32,9 @@ If you provide a plugin for your builder (maven, ant, sbt, gradle, plob, ...), l
 Links
 =====
 
-* [LiveReload Protocol](http://feedback.livereload.com/knowledgebase/articles/86174-livereload-protocol)
+* [Browsers Extension](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-)
 * [livereload-js](https://github.com/livereload/livereload-js) the client side
-* LiveReload [Chrome extension](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei)
+* [LiveReload Protocol](http://feedback.livereload.com/knowledgebase/articles/86174-livereload-protocol)
 
 Alternatives
 ============
@@ -44,3 +44,9 @@ Alternatives
 * [grunt-reload](https://github.com/webxl/grunt-reload) a LiveReload server-side for Grunt (javascript/nodejs)
 * [LivePage](https://chrome.google.com/webstore/detail/livepage/pilnojpmdoofaelbinaeodfpjheijkbh) an other way to "auto-reload"
 * without LiveReload : `cd web/root/path && python -m http.server 8000` (python)
+
+License
+=======
+
+* the project is under [unlicense](http://unlicense.org/)
+* the project (source and binaries) include [livereload.js], livereload.js is under MIT
