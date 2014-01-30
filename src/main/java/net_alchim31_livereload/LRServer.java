@@ -13,20 +13,20 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class LRServer {
-  private final int port;
-  private final Path docroot;
+  private final int _port;
+  private final Path _docroot;
   private Server _server;
   private Watcher _watcher;
-  private static String[] exclusions;
+  private static String[] _exclusions;
 
   public LRServer(int port, Path docroot) {
-    this.port = port;
-    this.docroot = docroot;
+    this._port = port;
+    this._docroot = docroot;
   }
 
   private void init() throws Exception {
     SelectChannelConnector connector = new SelectChannelConnector();
-    connector.setPort(port);
+    connector.setPort(_port);
 
     ResourceHandler rHandler = new ResourceHandler() {
       @Override
@@ -44,7 +44,7 @@ public class LRServer {
     };
     rHandler.setDirectoriesListed(true);
     rHandler.setWelcomeFiles(new String[]{"index.html"});
-    rHandler.setResourceBase(docroot.toString());
+    rHandler.setResourceBase(_docroot.toString());
 
     LRWebSocketHandler wsHandler = new LRWebSocketHandler();
     wsHandler.setHandler(rHandler);
@@ -53,24 +53,24 @@ public class LRServer {
     _server.setHandler(wsHandler);
     _server.addConnector(connector);
 
-    _watcher = new Watcher(docroot);
-    if (exclusions != null && exclusions.length > 0) {
+    _watcher = new Watcher(_docroot);
+    if (_exclusions != null && _exclusions.length > 0) {
       List<Pattern> patterns = new ArrayList<Pattern>();
-      for (String exclusion : exclusions) {
+      for (String exclusion : _exclusions) {
         patterns.add(Pattern.compile(exclusion));
       }
-      _watcher.setPatterns(patterns);
+      _watcher.set_patterns(patterns);
     }
     _watcher.listener = wsHandler;
 
   }
 
   public static void setExclusions(String[] exclusions) {
-    LRServer.exclusions = exclusions;
+    LRServer._exclusions = exclusions;
   }
 
   public static String[] getExclusions() {
-    return exclusions;
+    return _exclusions;
   }
 
   public void start() throws Exception {

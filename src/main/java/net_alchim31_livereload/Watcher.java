@@ -26,7 +26,7 @@ public class Watcher implements Runnable {
   private final AtomicBoolean _running = new AtomicBoolean(false);
 
   public LRWebSocketHandler listener = null;
-  private List<Pattern> patterns;
+  private List<Pattern> _patterns;
 
   public Watcher(Path docroot) throws Exception {
     _docroot = docroot;
@@ -39,8 +39,8 @@ public class Watcher implements Runnable {
   }
 
   private void notify(String path) throws Exception {
-    if (patterns != null) {
-      for (Pattern p : patterns) {
+    if (_patterns != null) {
+      for (Pattern p : _patterns) {
         LOG.finer("Testing pattern: " + p + " against string: " + path);
         if (p.matcher(path).matches()) {
           LOG.fine("Skipping file: " + path + " thanks to pattern: " + p);
@@ -160,11 +160,11 @@ public class Watcher implements Runnable {
     }
   }
 
-  public void setPatterns(List<Pattern> patterns) {
-    this.patterns = patterns;
+  public void set_patterns(List<Pattern> _patterns) {
+    this._patterns = _patterns;
   }
 
-  public List<Pattern> getPatterns() {
-    return patterns;
+  public List<Pattern> get_patterns() {
+    return _patterns;
   }
 }
