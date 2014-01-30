@@ -1,38 +1,32 @@
 package net_alchim31_livereload;
 
-import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
-import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
-
 import java.io.IOException;
-import java.nio.file.ClosedWatchServiceException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
+import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
+import static java.nio.file.StandardWatchEventKinds.*;
 
 /**
- * @see http://docs.oracle.com/javase/tutorial/essential/io/notification.html
  * @author dwayne
- * 
+ * @see http://docs.oracle.com/javase/tutorial/essential/io/notification.html
  */
 // TODO make a start/stop/join method
 public class Watcher implements Runnable {
-  private final WatchService        _watcher;
+  private static final Logger LOG = Logger.getLogger(Watcher.class.getName());
+  private final WatchService _watcher;
   private final Map<WatchKey, Path> _keys;
-  private final Path                _docroot;
-  private final AtomicBoolean       _running = new AtomicBoolean(false);
+  private final Path _docroot;
+  private final AtomicBoolean _running = new AtomicBoolean(false);
 
-  public LRWebSocketHandler         listener = null;
+  public LRWebSocketHandler listener = null;
+  private List<Pattern> _patterns;
 
   public Watcher(Path docroot) throws Exception {
     _docroot = docroot;
@@ -45,9 +39,20 @@ public class Watcher implements Runnable {
   }
 
   private void notify(String path) throws Exception {
+    if (_patterns != null) {
+      for (Pattern p : _patterns) {
+        LOG.finer("Testing pattern: " + p + " against string: " + path);
+        if (p.matcher(path).matches()) {
+          LOG.fine("Skipping file: " + path + " thanks to pattern: " + p);
+          return;
+        }
+      }
+    }
+    LOG.fine("File " + path + " changed, triggering refresh");
     LRWebSocketHandler l = listener;
-    if (l != null)
+    if (l != null) {
       l.notifyChange(path);
+    }
   }
 
   @SuppressWarnings("unchecked")
@@ -71,8 +76,7 @@ public class Watcher implements Runnable {
     Files.walkFileTree(start, new SimpleFileVisitor<Path>() {
       @Override
       public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
-          throws IOException
-      {
+              throws IOException {
         register(dir);
         return FileVisitResult.CONTINUE;
       }
@@ -94,7 +98,7 @@ public class Watcher implements Runnable {
 
   /**
    * Process all events for keys queued to the watcher
-   * 
+   *
    * @throws Exception
    */
   @Override
@@ -154,5 +158,13 @@ public class Watcher implements Runnable {
     } finally {
       _running.set(false);
     }
+  }
+
+  public void set_patterns(List<Pattern> _patterns) {
+    this._patterns = _patterns;
+  }
+
+  public List<Pattern> get_patterns() {
+    return _patterns;
   }
 }
