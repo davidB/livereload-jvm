@@ -15,9 +15,9 @@ If you change the port then you could not use the [Browsers Extension](http://fe
 Cli
 ---
 
-Download the [livereload-jvm-0.1.0-onejar.jar](http://repo2.maven.org/maven2/net/alchim31/livereload-jvm/0.1.0/livereload-jvm-0.1.0-onejar.jar) (or regular jar  + all dependencies from maven central).
+Download the [livereload-jvm-0.1.0-onejar.jar](http://repo2.maven.org/maven2/net/alchim31/livereload-jvm/0.2.0/livereload-jvm-0.2.0-onejar.jar) (or regular jar  + all dependencies from maven central).
 
-    java -jar livereload-jvm-0.1.0-onejar.jar web/root/path [port]
+    java -jar livereload-jvm-0.2.0-onejar.jar web/root/path [port]
 
 Java integration
 ----------------
@@ -25,7 +25,7 @@ Java integration
     //#repo central m2:http://repo1.maven.org/maven2/
     
     import java.nio.file.FileSystems;
-    import net_alchim31_livereload.LRServer; //#from net.alchim31:livereload-jvm:0.1.0
+    import net_alchim31_livereload.LRServer; //#from net.alchim31:livereload-jvm:0.2.0
     
     int port = 35729;
     Path docroot = FileSystems.getDefault().getPath("web/root/path");
@@ -39,6 +39,7 @@ Links
 * [Browsers Extension](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-)
 * [livereload-js](https://github.com/livereload/livereload-js) the client side
 * [LiveReload Protocol](http://feedback.livereload.com/knowledgebase/articles/86174-livereload-protocol)
+* [LiveReload Gradle Plugin](https://github.com/aalmiray/livereload-gradle-plugin) is based on livereload-jvm
 
 Alternatives
 ============
