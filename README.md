@@ -37,9 +37,9 @@ If you provide a plugin for your builder (maven, ant, sbt, gradle, plob, ...), l
 
 Versions
 ========
-  . 0.3.0: using jetty `9.2.10.v20150310`
-  . 0.2.0: using jetty `8.1.8.v20121106`
-  . 0.1.0: using jetty `8.1.8.v20121106`
+  - 0.3.0: using jetty `9.2.10.v20150310`
+  - 0.2.0: using jetty `8.1.8.v20121106`
+  - 0.1.0: using jetty `8.1.8.v20121106`
 
 Links
 =====
