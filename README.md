@@ -12,26 +12,34 @@ Usages
 The default port is 35729 (like define in the LiveReload protocol).
 If you change the port then you could not use the [Browsers Extension](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-) for LiveReload, but it should works if you insert a [JavaScript snippet](http://go.livereload.com/mobile) in your pages.
 
+**TODO**: All changes happening before `settleDownMillis` (default 500ms) are aggregated to avoid refreshing the browser too often.
+
 Cli
 ---
 
-Download the [livereload-jvm-0.2.0-onejar.jar](http://repo2.maven.org/maven2/net/alchim31/livereload-jvm/0.2.0/livereload-jvm-0.2.0-onejar.jar) (or regular jar  + all dependencies from maven central).
+Download the [livereload-jvm-0.3.0-onejar.jar](http://repo2.maven.org/maven2/net/alchim31/livereload-jvm/0.3.0/livereload-jvm-0.3.0-onejar.jar) (or regular jar  + all dependencies from maven central).
 
-    java -jar livereload-jvm-0.2.0-onejar.jar -d web/root/path [port]
+    java -jar livereload-jvm-0.3.0-onejar.jar -d web/root/path [port]
 
 Java integration
 ----------------
 
     //#repo central m2:http://repo1.maven.org/maven2/
-    
+
     import java.nio.file.FileSystems;
     import net_alchim31_livereload.LRServer; //#from net.alchim31:livereload-jvm:0.2.0
-    
+
     int port = 35729;
     Path docroot = FileSystems.getDefault().getPath("web/root/path");
     new LRServer(port, docroot).run(); // == start() + join()
 
 If you provide a plugin for your builder (maven, ant, sbt, gradle, plob, ...), let me know.
+
+Versions
+========
+  - 0.3.0: using jetty `9.2.10.v20150310`
+  - 0.2.0: using jetty `8.1.8.v20121106`
+  - 0.1.0: using jetty `8.1.8.v20121106`
 
 Links
 =====
