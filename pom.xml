@@ -67,14 +67,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>8.1.8.v20121106</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-websocket</artifactId>
-			<version>8.1.8.v20121106</version>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>websocket-server</artifactId>
+			<version>9.2.10.v20150310</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
