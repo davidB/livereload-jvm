@@ -36,7 +36,7 @@ public class LRServer {
 
 		ResourceHandler rHandler = new ResourceHandler() {
 			@Override
-			public Resource getResource(String path) throws MalformedURLException {
+			public Resource getResource(String path) {
 				if ("/livereload.js".equals(path)) {
 					return Resource.newResource(LRServer.class.getResource(path));
 				}
